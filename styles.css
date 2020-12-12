@@ -1,0 +1,174 @@
+.header-section {
+    background-color: rgb(173, 127, 142);
+    color:white;
+    font-family: monospace;
+    display: flex;
+    flex-direction: row;
+    font-family: 'DM Serif Display', serif;
+    letter-spacing: 0.5px;
+    font-size: 23px; 
+    padding-top: 15px;
+    padding-bottom: 15px;
+    justify-content: space-between;
+    padding-left: 75px;
+    padding-right: 75px;
+}
+.top-bar {
+    color: white;
+    text-decoration: none;
+}
+
+.links a {
+  color: white;
+  text-decoration: none;
+}
+
+.links a:not(:last-child) {
+    margin-right: 20px;
+}
+
+.top-presentation {
+    font-size: 60px; 
+    margin-top: 40px;
+    padding-top: 100px;
+    padding-left: 75px;
+    padding-right: 75px;
+    padding-bottom: 100px;
+    font-weight: 100;
+ 
+}
+
+body{
+    margin: 0px;
+}
+
+/* About me  */
+
+.pai{
+    justify-content: center;
+    display: flex;
+}
+
+.personal-information {
+    background-color: white;
+    color: black;
+    padding-top: 75px;
+    padding-left: 75px;
+    padding-right: 75px;
+    width: 1100px;
+    
+}
+
+.line {
+   display: flex;
+   flex-direction: line;
+   padding-bottom: 75px;
+}
+
+.column-title {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    color:black;
+    align-items: center;
+
+}
+
+.about_me{
+    margin-top:20px;
+    font-family: 'DM Serif Display', serif;
+    font-size:20px
+}
+
+
+.avatar{
+    width: 250px;
+   height: 250px;
+   border-radius: 50%;
+   
+} 
+
+.university{
+    font-style: italic;
+}
+
+.icons_pai{
+    justify-content: center;
+    margin-top: 5px;     
+}
+
+.column-description {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    font-size: 23px;
+    text-align: justify;
+    justify-content: center;
+    padding-left: 100px;
+}
+
+.column-description-line {
+    display: flex;
+    flex-direction: line;
+    width: 70%;  
+    
+}
+
+.alinhamento {
+align-items: center;
+display: flex;
+
+}
+
+
+
+
+
+
+
+
+/* contacts section */
+
+.address-section{
+    background-color: rgb(235, 237, 237);
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 50px;
+    padding-top: 50px;
+    padding-left: 75px;
+    padding-right: 75px;
+ }
+
+.morada{
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+  
+}
+
+.contacto{
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.e-mail{
+    border-bottom: 2px solid rgb(173, 127, 142);
+    width: fit-content;
+   
+}
+
+.search{
+    display: flex;
+    flex-direction: row;
+    width: 33%;
+    justify-content: flex-end;
+}
+
+.social_icons{
+    padding-inline-start: 25px;  
+    
+}
