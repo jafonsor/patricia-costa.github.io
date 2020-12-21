@@ -1,12 +1,12 @@
 .header-section {
     background-color: rgb(173, 127, 142);
-    color:white;
+    color: white;
     font-family: monospace;
     display: flex;
     flex-direction: row;
     font-family: 'DM Serif Display', serif;
     letter-spacing: 0.5px;
-    font-size: 23px; 
+    font-size: 22px; 
     padding-top: 15px;
     padding-bottom: 15px;
     justify-content: space-between;
@@ -24,7 +24,7 @@
 }
 
 .links a:not(:last-child) {
-    margin-right: 20px;
+    margin-right: 25px;
 }
 
 .top-presentation {
@@ -76,6 +76,7 @@ body{
 
 .about_me{
     margin-top:20px;
+    margin-bottom:3px;
     font-family: 'DM Serif Display', serif;
     font-size:20px
 }
@@ -89,7 +90,10 @@ body{
 } 
 
 .university{
+    margin-bottom: 3px;
     font-style: italic;
+    font-family: 'Merriweather', serif;
+    font-size: 14px;
 }
 
 .icons_pai{
@@ -101,10 +105,12 @@ body{
     display: flex;
     flex-direction: column;
     width: 100%;
-    font-size: 23px;
+    font-size: 16px;
     text-align: justify;
     justify-content: center;
     padding-left: 100px;
+    font-family: 'Merriweather', serif;
+    line-height: 32px;
 }
 
 .column-description-line {
@@ -152,6 +158,7 @@ display: flex;
     width: 33%;
     align-items: center;
     justify-content: center;
+    
 }
 
 
@@ -162,10 +169,9 @@ display: flex;
 }
 
 .search{
-    display: flex;
-    flex-direction: row;
-    width: 33%;
-    justify-content: flex-end;
+    font-family: 'DM Serif Display', serif;
+    ;
+    font-size: 30px; 
 }
 
 .social_icons{
