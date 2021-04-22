@@ -1,0 +1,197 @@
+body {
+    margin: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+p:not(:last-child){
+    margin-top: 0px;
+    margin-bottom: 16px;
+}
+
+.header {
+    background-color: rgb(173, 127, 142);
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.nav-bar > div:not(:last-child) {
+    margin-right: 30px;
+}
+
+.header a {
+    text-decoration: none;
+    color: white;
+}
+
+.main {
+    display: flex;
+    background-color: white;
+    padding-top: 75px;
+    padding-bottom: 75px;
+    flex-grow: 1;
+}
+
+.background-gray {
+    background-color: rgb(235, 237, 237);;
+}
+
+.footer {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background-color: rgb(235, 237, 237);;
+}
+
+.font-white {
+    /* font-family: 'Fira Sans Condensed', sans-serif; */
+    /* font-weight: 800; */
+    font-family: 'DM Serif Display', sans-serif;
+    font-weight: 400;
+    font-size: 22px;
+    font-style: bold;
+    color: white;
+    letter-spacing: 0.5px;
+}
+
+.font-light {
+    /* font-family: 'Fira Sans Condensed', sans-serif; */
+    /* font-size: 18px; */
+    font-family: 'Merriweather', serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 32px;
+}
+
+.font-medium {
+    /* font-family: 'Fira Sans Condensed', sans-serif; */
+    /* font-weight: 500; */
+    font-family: 'Merriweather', serif;
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.font-light-italic {
+    /* font-family: 'Fira Sans Condensed', sans-serif; */
+    /* font-size: 18px; */
+    font-family: 'Merriweather', serif;
+    font-weight: 300;
+    font-size: 14px;
+    font-style: italic;
+}
+
+.font-times-small {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.title-1 {
+    /* font-family: 'Fira Sans Condensed', sans-serif; */
+    /* font-weight: 800; */
+    /* font-size: 18px; */
+    font-family: 'Merriweather', serif;
+    font-weight: 700;
+    font-size: 45px;
+    font-style: bold;
+    color: #BD7391;
+}
+
+.title-2 {
+    /* font-family: 'Fira Sans Condensed', sans-serif; */
+    /* font-size: 25px; */
+    /* font-weight: 800; */
+    font-family: 'DM Serif Display', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    font-style: bold;
+    color: #BD7391;
+}
+
+.title-2-black {
+    /* font-family: 'Fira Sans Condensed', sans-serif; */
+    /* font-size: 25px; */
+    /* font-weight: 800; */
+    font-family: 'DM Serif Display', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    font-style: bold;
+    color: black;
+}
+
+.container {
+    display: flex;
+    padding-left: 75px;
+    padding-right: 75px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    max-width: 1440px;
+    width: 100%;
+    align-items: center;
+}
+
+.row-main {
+    display: flex;
+    flex-direction: row;
+    max-width: 1100px;
+    width: 100%;
+    align-items: center;
+}
+
+.line {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+}
+
+.col:not(:last-child) {
+    padding-right: 10px;
+}
+
+.space-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.align-left {
+    align-items: flex-end;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.underline {
+    border-bottom: 2px solid rgb(173, 127, 142);
+}
+
+.footer-contacts-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 30px;
+    color: rgb(173, 127, 142);
+}
+
+.flex-1 { flex: 1; }
+.flex-2 { flex: 2; }
+.flex-3 { flex: 3; }
+.flex-4 { flex: 4; }
+.flex-5 { flex: 5; }
+.flex-6 { flex: 6; }
+.flex-7 { flex: 7; }
+.flex-8 { flex: 8; }
+.flex-9 { flex: 9; }
+.flex-10 { flex: 10; }
+.flex-11 { flex: 11; }
+.flex-12 { flex: 12; }
+
+

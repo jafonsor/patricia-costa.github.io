@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="35px" viewBox="0 0 32 35" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Book</title>
+    <g id="Site" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Sri-Lanka-Portuguese" transform="translate(-56.000000, -539.000000)" fill="#000000">
+            <g id="Group" transform="translate(48.000000, 532.000000)">
+                <g id="Shape" transform="translate(8.000000, 7.000000)">
+                    <path d="M0,9 C0,4.02944 4.02944,0 9,0 L29,0 C30.6568,0 32,1.34314 32,3 L32,33 C32,34.1046 31.1046,35 30,35 L7,35 C3.47352,35 0.55612,32.3922 0.07088,29 L0,29 L0,9 Z M29,24 L7,24 C4.79086,24 3,25.7908 3,28 C3,30.2092 4.79086,32 7,32 L29,32 L29,24 Z M8.5,9 C8.5,8.17158 9.17158,7.5 10,7.5 L24,7.5 C24.8284,7.5 25.5,8.17158 25.5,9 C25.5,9.82842 24.8284,10.5 24,10.5 L10,10.5 C9.17158,10.5 8.5,9.82842 8.5,9 Z M10,13.5 C9.17158,13.5 8.5,14.1716 8.5,15 C8.5,15.8284 9.17158,16.5 10,16.5 L20,16.5 C20.8284,16.5 21.5,15.8284 21.5,15 C21.5,14.1716 20.8284,13.5 20,13.5 L10,13.5 Z"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

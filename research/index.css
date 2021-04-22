@@ -1,0 +1,47 @@
+.desktop {
+    background-image: url(../assets/images/imac.svg);
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* width: 192px;
+    height: 144px; */
+}
+
+.plant {
+    background-image: url(../assets/images/plant.svg);
+    width: 82px;
+    height: 126px;
+}
+
+.gray-column {
+    padding: 10px;
+}
+
+.gray-column p {
+    display: inline;
+}
+
+.download-icon {
+    background-image: url(../assets/images/icons/download.svg);
+    width: 16px;
+    height: 17px;
+    display: inline-block;
+}
+
+.research-subheader {
+    height: 144px;
+}
+
+
+.gray-column {
+    background-color: #F9F5F5;
+    flex-grow: 1;
+}
+
+.last-publication-container {
+    display: flex;
+    justify-content: center;
+}
+.last-publication-icon {
+    width: 70%;
+}

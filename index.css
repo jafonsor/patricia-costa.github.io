@@ -1,0 +1,37 @@
+.profile-picture {
+    width: 250px;
+    height: 250px;
+    background-image: url(./assets/images/AVATAR.jpg);
+    background-position: center;
+    border-radius: 50%;
+    background-size: 250px;
+    margin-bottom: 20px;
+}
+
+.twiter-icon {
+    background-image: url(./assets/images/icons/twitter.svg);
+    width: 20px;
+    height: 17px;
+}
+
+.instagram-icon {
+    background-image: url(./assets/images/icons/instagram.svg);
+    width: 20px;
+    height: 20px;
+}
+
+.picture-column {
+    margin-right: 80px;
+}
+
+.ulisboa {
+    margin-top: 5px;
+}
+
+.social-media-accounts {
+    margin-top: 10px;
+}
+
+.social-media-accounts > *:not(:last-child) {
+    margin-right: 2px;
+}

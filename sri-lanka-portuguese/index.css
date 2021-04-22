@@ -1,0 +1,42 @@
+.book {
+    background-image: url(../assets/images/icons/book.svg);
+    width: 32px;
+    height: 35px;
+
+    margin-right: 10px;
+}
+
+.folder {
+    background-image: url(../assets/images/icons/folder-open.svg);
+    width: 41px;
+    height: 29px;
+
+    margin-right: 10px;
+}
+
+.desktop {
+    background-image: url(../assets/images/icons/desktop.svg);
+    width: 37px;
+    height: 32px;
+
+    margin-right: 10px;
+}
+
+.sri-lanka-map {
+    background-image: url(../assets/images/srilanka-map.svg);
+    background-position: right;
+    background-repeat: no-repeat;
+}
+
+
+.links-div {
+    background-color: #F9F5F5;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 30px;
+}
+
+.links-div .row {
+    margin-top: 20px;
+    align-items: center;
+}
