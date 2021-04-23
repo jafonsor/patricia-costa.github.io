@@ -11,7 +11,7 @@ p:not(:last-child){
 }
 
 .header {
-    background-color: rgb(173, 127, 142);
+    background-color: #B8A68E;
     padding-top: 15px;
     padding-bottom: 15px;
 }
@@ -44,10 +44,8 @@ p:not(:last-child){
 }
 
 .font-white {
-    /* font-family: 'Fira Sans Condensed', sans-serif; */
-    /* font-weight: 800; */
-    font-family: 'DM Serif Display', sans-serif;
-    font-weight: 400;
+    font-family: 'Fira Sans Condensed', sans-serif; 
+    font-weight: 800; 
     font-size: 22px;
     font-style: bold;
     color: white;
@@ -55,66 +53,51 @@ p:not(:last-child){
 }
 
 .font-light {
-    /* font-family: 'Fira Sans Condensed', sans-serif; */
-    /* font-size: 18px; */
-    font-family: 'Merriweather', serif;
+    font-family: 'Fira Sans Condensed', sans-serif; 
+    font-size: 18px; 
     font-weight: 300;
-    font-size: 16px;
     line-height: 32px;
 }
 
 .font-medium {
-    /* font-family: 'Fira Sans Condensed', sans-serif; */
-    /* font-weight: 500; */
-    font-family: 'Merriweather', serif;
-    font-weight: 400;
+    font-family: 'Fira Sans Condensed', sans-serif;
+    font-weight: 500; 
     font-size: 20px;
 }
 
 .font-light-italic {
-    /* font-family: 'Fira Sans Condensed', sans-serif; */
-    /* font-size: 18px; */
-    font-family: 'Merriweather', serif;
+    font-family: 'Fira Sans Condensed', sans-serif; 
+    font-size: 18px; 
     font-weight: 300;
-    font-size: 14px;
     font-style: italic;
 }
 
 .font-times-small {
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 16px;
-    font-weight: normal;
+    font-family: 'Fira Sans Condensed', sans-serif; 
+    font-size: 15px; 
+    font-weight: 300;
 }
 
 .title-1 {
-    /* font-family: 'Fira Sans Condensed', sans-serif; */
-    /* font-weight: 800; */
-    /* font-size: 18px; */
-    font-family: 'Merriweather', serif;
-    font-weight: 700;
-    font-size: 45px;
+    font-family: 'Fira Sans Condensed', sans-serif; 
+    font-weight: 800; 
+    font-size: 18px; 
     font-style: bold;
-    color: #BD7391;
+    color: #DBBBB8;
 }
 
 .title-2 {
-    /* font-family: 'Fira Sans Condensed', sans-serif; */
-    /* font-size: 25px; */
-    /* font-weight: 800; */
-    font-family: 'DM Serif Display', sans-serif;
-    font-weight: 700;
-    font-size: 20px;
+    font-family: 'Fira Sans Condensed', sans-serif; 
+    font-size: 25px; 
+    font-weight: 800; 
     font-style: bold;
-    color: #BD7391;
+    color: #DBBBB8;
 }
 
 .title-2-black {
-    /* font-family: 'Fira Sans Condensed', sans-serif; */
-    /* font-size: 25px; */
-    /* font-weight: 800; */
-    font-family: 'DM Serif Display', sans-serif;
-    font-weight: 700;
-    font-size: 20px;
+    font-family: 'Fira Sans Condensed', sans-serif; 
+    font-size: 25px; 
+    font-weight: 800; 
     font-style: bold;
     color: black;
 }
@@ -130,15 +113,7 @@ p:not(:last-child){
 .row {
     display: flex;
     flex-direction: row;
-    max-width: 1440px;
-    width: 100%;
-    align-items: center;
-}
-
-.row-main {
-    display: flex;
-    flex-direction: row;
-    max-width: 1100px;
+    max-width: 1000px;
     width: 100%;
     align-items: center;
 }
@@ -172,13 +147,13 @@ p:not(:last-child){
 }
 
 .underline {
-    border-bottom: 2px solid rgb(173, 127, 142);
+    border-bottom: 2px solid #DBBBB8;
 }
 
 .footer-contacts-title {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'Fira Sans Condensed', sans-serif; 
     font-size: 30px;
-    color: rgb(173, 127, 142);
+    color: #DBBBB8;
 }
 
 .flex-1 { flex: 1; }

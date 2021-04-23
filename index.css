@@ -1,10 +1,10 @@
 .profile-picture {
     width: 250px;
     height: 250px;
-    background-image: url(./assets/images/AVATAR.jpg);
+    background-image: url(./assets/images/avatar2.JPG);
     background-position: center;
     border-radius: 50%;
-    background-size: 250px;
+    background-size: 372px;
     margin-bottom: 20px;
 }
 
