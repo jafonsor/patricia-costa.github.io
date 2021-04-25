@@ -3,9 +3,6 @@
 }
 
 
- 
-
-
 .download-icon {
     background-image: url(../assets/images/icons/download.svg);
     width: 16px;
@@ -28,3 +25,12 @@
     display: inline-block;
 }
 
+.margin-img  {
+    width: 15px;
+    height: 100%;
+
+}
+
+.margin-caption {
+    margin-top: 13px;
+}
