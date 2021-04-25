@@ -163,7 +163,6 @@ p a:visited {
     flex-direction: row;
     max-width: 1000px;
     width: 100%;
-    align-items: center;
 }
 
 .line {
