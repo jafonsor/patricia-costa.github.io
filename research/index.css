@@ -1,3 +1,11 @@
+.title-1:not(:first-child) {
+    margin-top: 15px;
+}
+
+
+ 
+
+
 .download-icon {
     background-image: url(../assets/images/icons/download.svg);
     width: 16px;
@@ -10,7 +18,7 @@
 }
 
 .research-subheader .font-light {
-    line-height: 25px
+    line-height: 30px
 }
 
 .unlock-icon {
@@ -19,3 +27,4 @@
     height: 20px;
     display: inline-block;
 }
+
