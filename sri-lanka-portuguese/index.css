@@ -22,10 +22,23 @@
     margin-right: 10px;
 }
 
-.sri-lanka-map {
-    background-image: url(../assets/images/srilanka-map.svg);
-    background-position: right;
+.world-map {
+    background-image: url(../assets/images/mapa1.svg);
     background-repeat: no-repeat;
+    height: 422px;
+    width: 66%;
+}
+
+.sri-lanka-map {
+    background-image: url(../assets/images/mapa2.svg);
+    background-repeat: no-repeat;
+    display: flex;
+    flex-grow: 1;
+    margin: 32px;
+}
+
+.map-row {
+    margin-bottom: 30px;
 }
 
 
