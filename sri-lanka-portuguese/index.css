@@ -1,29 +1,6 @@
-.book {
-    background-image: url(../assets/images/icons/book.svg);
-    width: 32px;
-    height: 35px;
-
-    margin-right: 10px;
-}
-
-.folder {
-    background-image: url(../assets/images/icons/folder-open.svg);
-    width: 41px;
-    height: 29px;
-
-    margin-right: 10px;
-}
-
-.desktop {
-    background-image: url(../assets/images/icons/desktop.svg);
-    width: 37px;
-    height: 32px;
-
-    margin-right: 10px;
-}
 
 .world-map {
-    background-image: url(../assets/images/mapa1.svg);
+    background-image: url(../assets/images/mapa-mundo.svg);
     background-repeat: no-repeat;
     height: 422px;
     width: 66%;
@@ -37,19 +14,53 @@
     margin: 32px;
 }
 
+
 .map-row {
     margin-bottom: 30px;
 }
 
 
 .links-div {
-    background-color: #F9F5F5;
+    background-color: white;
+}
+
+.row.links-div {
+    margin-top: 20px;
+    align-items: center;
+}
+
+.links-col {
     padding-top: 30px;
     padding-bottom: 30px;
     padding-left: 30px;
 }
 
-.links-div .row {
-    margin-top: 20px;
-    align-items: center;
+.links-col .title-2 {
+    color:#B8A68E;
 }
+
+.links-div .font-light {
+    font-family: 'Fira Sans Condensed', sans-serif; 
+    font-size: 17px; 
+    font-weight: 300;
+    line-height: 20px;
+    color: black;
+}
+
+a:link {
+    color :#B8A68E;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #875725;
+    background-color: transparent;
+    text-decoration: none;
+  }
+
+
+.title-2 {
+    margin-bottom: 12px;
+}
+
