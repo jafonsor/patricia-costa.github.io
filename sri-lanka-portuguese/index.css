@@ -22,6 +22,9 @@
 
 .links-div {
     background-color: white;
+    padding-top: 30px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .row.links-div {
@@ -30,9 +33,9 @@
 }
 
 .links-col {
-    padding-top: 30px;
-    padding-bottom: 30px;
-    padding-left: 30px;
+    display: flex;
+    justify-content: center;
+    width: calc(50% - 20px);
 }
 
 .links-col .title-2 {
@@ -64,3 +67,44 @@ a:visited {
     margin-bottom: 12px;
 }
 
+
+.pics-div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pics-div:not(:first-child) {
+    margin-top: 5px;
+}
+
+.pics-div-text-video {
+    width: calc(50% - 20px);
+}
+
+.pics-div-video {
+    position: relative;
+    width: calc(50% - 20px);
+    background-color:white;
+}
+
+.pics-div-image {
+    width: calc(50% - 20px);
+    position: relative;
+
+    background-image: url(../assets/images/slp-instagram.svg);
+    background-repeat: no-repeat;
+}
+
+.pics-div-text-image {
+    width: calc(50% - 15px);
+}
+
+
+.title1b {
+    text-align: left;
+    font-family: 'Fira Sans Condensed', sans-serif; 
+    font-weight: 350; 
+    font-size:30px; 
+    color: #B8A68E;
+}
