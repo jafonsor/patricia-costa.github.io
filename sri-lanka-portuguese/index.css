@@ -80,6 +80,8 @@
     position: relative;
 
     background-image: url(../assets/images/slp-instagram-1.png);
+    background-size: 67%;
+    background-position: left;
     background-repeat: no-repeat;
 }
 
