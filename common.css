@@ -33,10 +33,10 @@ p:not(:first-child){
 }
 
 /* hack to make the nav bar links to allways be white */
-.font-white .link:link {
+.font-white > .link:link {
     color: white;
 }
-.font-white .link:visited {
+.font-white > .link:visited {
     color: white;
 }
 
