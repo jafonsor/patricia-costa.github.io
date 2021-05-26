@@ -252,5 +252,5 @@ p:not(:first-child){
 /* fonts */
 @font-face {
     font-family: 'SwistblnkMonthoers, Swistblnk Monthoers';
-    src: url('assets/fonts/swistblnk_monthoers/Monthoers.ttf')  format('truetype');
+    src: url('assets/fonts/swistblnk_monthoers/Monthoers.ttf');
   }
