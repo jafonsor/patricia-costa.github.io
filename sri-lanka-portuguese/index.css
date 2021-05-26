@@ -50,19 +50,6 @@
     color: black;
 }
 
-a:link {
-    color :#B8A68E;
-    background-color: transparent;
-    text-decoration: none;
-}
-
-a:visited {
-    color: #875725;
-    background-color: transparent;
-    text-decoration: none;
-  }
-
-
 .title-2 {
     margin-bottom: 12px;
 }
@@ -107,4 +94,8 @@ a:visited {
     font-weight: 350; 
     font-size:30px; 
     color: #B8A68E;
+}
+
+.margin-between-resources-and-button {
+    height: 10px;
 }

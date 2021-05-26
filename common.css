@@ -20,19 +20,22 @@ p:not(:first-child){
     margin-bottom: 16px;
 }
 
-p a:link {
+.link:link {
     color: #A1805C;
     background-color: transparent;
     text-decoration: none;
 }
 
-p a:visited {
+.link:visited {
     color: #A1805C;
     background-color: transparent;
     text-decoration: none;
-  }
+}
 
-
+/* hack to make the nav bar links to allways be white */
+.font-white .link:visited {
+    color: white;
+}
 
 .header {
     background-color: #B8A68E;
@@ -216,4 +219,30 @@ p a:visited {
 .flex-11 { flex: 11; }
 .flex-12 { flex: 12; }
 
+.button {
+    border-radius: 3px;
+    border: 1px solid #B8A68E;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-family: 'Fira Sans Condensed', sans-serif; 
+    width: fit-content;
+
+    background-color: #B8A68E;
+    color: white;
+}
+
+.button:hover {
+    background-color: white;
+    color: #B8A68E;
+}
+
+.button:link {
+    text-decoration: none;
+}
+
+.button:visited {
+    text-decoration: none;
+}
 

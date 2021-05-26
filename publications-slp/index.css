@@ -1,0 +1,37 @@
+.title-1:not(:first-child) {
+    margin-top: 15px;
+}
+
+
+.download-icon {
+    background-image: url(../assets/images/icons/download.svg);
+    width: 16px;
+    height: 17px;
+    display: inline-block;
+}
+
+.research-subheader p {
+    display: inline;
+}
+
+.research-subheader .font-light {
+    line-height: 30px
+}
+
+.unlock-icon {
+    background-image: url(../assets/images/icons/Unlock.svg);
+    width: 16px;
+    height: 20px;
+    display: inline-block;
+}
+
+.margin-img  {
+    width: 15px;
+    height: 100%;
+
+}
+
+.margin-caption {
+    margin-top: 12px;
+    margin-bottom: 10px
+}
