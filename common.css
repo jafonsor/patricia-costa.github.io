@@ -69,6 +69,7 @@ p:not(:first-child){
     padding-top: 75px;
     padding-bottom: 75px;
     flex-grow: 1;
+    justify-content: center;
 }
 
 .background-gray {
