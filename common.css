@@ -93,7 +93,7 @@ p:not(:first-child){
 
 .font-light {
     font-family: 'Fira Sans Condensed', sans-serif; 
-    font-size: 18px; 
+    font-size: 17px; 
     font-weight: 300;
     line-height: 32px;
 }
@@ -104,16 +104,6 @@ p:not(:first-child){
     font-weight: 300;
     line-height: 32px;
 }
-
-
-
-.font-light {
-    font-family: 'Fira Sans Condensed', sans-serif; 
-    font-size: 17px; 
-    font-weight: 300;
-    line-height: 32px;
-}
-
 
 .font-medium {
     font-family: 'Fira Sans Condensed', sans-serif;
