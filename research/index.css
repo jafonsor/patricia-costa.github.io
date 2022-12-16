@@ -25,6 +25,15 @@
     display: inline-block;
 }
 
+.twitter-icon {
+    background-image: url(../asset/images/icons/.twitter-icon);
+    width: 16px;
+    height: 20px;
+    display: inline-block;
+}    
+
+
+
 .margin-img  {
     width: 15px;
     height: 100%;
