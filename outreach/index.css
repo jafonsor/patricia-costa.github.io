@@ -1,0 +1,8 @@
+.title-1:not(:first-child) {
+    margin-top: 15px;
+}
+
+
+.research-subheader p {
+    display: inline;
+}
