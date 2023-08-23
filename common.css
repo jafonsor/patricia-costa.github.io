@@ -63,13 +63,16 @@ p:not(:first-child){
     color: white;
 }
 
+.main-centered {
+    justify-content: center;
+}
+
 .main {
     display: flex;
     background-color: white;
     padding-top: 75px;
     padding-bottom: 75px;
     flex-grow: 1;
-    justify-content: center;
 }
 
 .background-gray {
@@ -96,6 +99,12 @@ p:not(:first-child){
     font-size: 17px; 
     font-weight: 300;
     line-height: 32px;
+}
+
+.font-tamil {
+    font-family: 'Noto Sans Tamil', sans-serif;
+    font-size: 15px;
+    font-weight: bold;
 }
 
 .font-light-small {
