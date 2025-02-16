@@ -1,0 +1,71 @@
+<html>
+    <head>
+        <title>Sri Lanka Map</title>
+        <script src="./libs/d3.v7.js"></script>
+        <script src="./libs/xlsx.core.min.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
+            rel="stylesheet"
+        />
+
+        <link rel="stylesheet" href="./common.css" />
+        <link rel="stylesheet" href="./index.css" />
+    </head>
+    <body class="page-content">
+        <div class="page-center">
+            <div class="header">
+                <div class="title">
+                    <div class="upper-title inter bolder big">
+                        MAPPING SRI LANKA PORTUGUESE AT PRESENT
+                    </div>
+
+                    <div class="subtitle inter bold small">
+                        தற்போது போர்த்துக்கீச பறங்கியர் மொழி மேப்பிங் දැනට
+                        පෘතුගීසි භාෂාව කතා කරන භාෂා සිතියම්කරණය
+                    </div>
+                </div>
+                <div class="nav">
+                    <span class="nav-item inter bold medium yellow-text"
+                        ><a href="/">Home</a></span
+                    >
+                    <span class="nav-item inter bold medium yellow-text"
+                        ><a href="/about">About</a></span
+                    >
+                    <span class="nav-item inter bold medium yellow-text"
+                        ><a href="/glossary">Glossary</a></span
+                    >
+                </div>
+            </div>
+            <div class="map">
+                <div class="button-container">
+                    <div
+                        class="button inter normal small unselected"
+                        geojson-key="byDistrict"
+                        data-key="byDistrict"
+                    >
+                        by district
+                    </div>
+                    <div
+                        class="button inter normal small selected"
+                        geojson-key="bySubDistrict"
+                        data-key="bySubDistrict"
+                    >
+                        by grama niladhari
+                    </div>
+                </div>
+                <div id="map-container"></div>
+                <div id="menu"></div>
+            </div>
+            <div class="footer">
+                <div class="footer-icons"></div>
+            </div>
+        </div>
+        <script type="module" src="./index.js"></script>
+    </body>
+</html>
