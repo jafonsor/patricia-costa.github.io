@@ -38,8 +38,9 @@ export const processSampleData = (
   const groupedData = {};
 
   for (const item of sampleData) {
+    const groupKey = item[columnToGroupBy].replaceAll(" ", "");
     // Get the group for the current item
-    const itemGroup = groupedData[item[columnToGroupBy]] || {};
+    const itemGroup = groupedData[groupKey] || {};
     for (const column of columnsToCount) {
       // Count the number of times each value appears in the column
       const columnValueCounters = itemGroup[column] || {};
@@ -47,7 +48,71 @@ export const processSampleData = (
         (columnValueCounters[item[column]] || 0) + 1;
       itemGroup[column] = columnValueCounters;
     }
-    groupedData[item[columnToGroupBy]] = itemGroup;
+    groupedData[groupKey] = itemGroup;
   }
   return groupedData;
+};
+
+// for each item in sampleData, find the corresponding district and subDistrict in the geojson data.
+// return [{ sampleDataItem, district, subDistrict }] for each item in sampleData
+export const matchSampleDataToGeojson = (
+  sampleData,
+  districtColumn,
+  subDistrictColumn,
+  districtGeojson,
+  subDistrictGeojson
+) => {
+  const matchedData = [];
+  for (const item of sampleData) {
+    matchedData.push({
+      sampleDataItem: item,
+      district: districtGeojson.features.find(
+        (feature) =>
+          feature.properties.NAME_1 === item[districtColumn].replaceAll(" ", "")
+      ),
+      subDistrict: subDistrictGeojson.features.find(
+        (feature) =>
+          feature.properties.NAME_2 ===
+          item[subDistrictColumn].replaceAll(" ", "")
+      ),
+    });
+  }
+  const unmatchedData = matchedData.filter(
+    (item) => !item.district || !item.subDistrict
+  );
+  if (unmatchedData.length > 0) {
+    console.error(
+      new Error("Some sample data items do not match the geojson data"),
+      unmatchedData
+    );
+  }
+  return matchedData;
+};
+
+window._matchedData_ = null;
+window._loadMatchedData_ = async () => {
+  const [sampleData, districtGeoJSON, subdistrictGeoJSON] = await Promise.all([
+    fetch("./data/df1.csv")
+      .then((response) => response.text())
+      .then((text) => {
+        const data = XLSX.read(text, { type: "string" });
+        const sheet = data.Sheets[data.SheetNames[0]];
+        const parsedData = XLSX.utils.sheet_to_json(sheet, {
+          raw: true,
+        });
+        return parsedData;
+      }),
+
+    fetch("./geojson/gadm41_LKA_1.json").then((response) => response.json()),
+
+    fetch("./geojson/gadm41_LKA_2.json").then((response) => response.json()),
+  ]);
+
+  window._matchedData_ = matchSampleDataToGeojson(
+    sampleData,
+    "Localidade",
+    "DS",
+    districtGeoJSON,
+    subdistrictGeoJSON
+  );
 };
