@@ -41,8 +41,8 @@ const updateMap = (() => {
       svgNode,
       tooltip,
       projection,
-      getActiveGeojson(),
-      getActiveData(),
+      getActiveGeojson,
+      getActiveData,
       GLOBAL_SELECTED_DISTRICT_INFO,
       duration
     );
@@ -53,8 +53,8 @@ const renderMap = (
   svgNode,
   tooltip,
   projection,
-  geojson,
-  data,
+  getGeojson,
+  getData,
   selectedDistrictInfoObj,
   duration
 ) => {
@@ -64,9 +64,10 @@ const renderMap = (
     subDistrict: null,
   };
 
-  const dataStyle = dataStyleF(data);
+  const dataStyle = dataStyleF(getData());
   const selectedStyle = selectedStyleF(selectedDistrictInfo);
 
+  const geojson = getGeojson();
   const path = svgNode.selectAll("path").data(geojson.features);
 
   // Add paths for each feature in the GeoJSON
@@ -81,11 +82,18 @@ const renderMap = (
     .on("mouseover", (event, d) => {
       // get the sample data for the feature. looks for subdistrict name, otherwise
       // uses district name. if no data is found for both, then it does not open the tooltip
+      const data = getData();
       const districtData = data?.[d.properties.NAME_1];
       const subDistrictData = data?.[d.properties.NAME_2];
 
       const sampleData = districtData || subDistrictData;
       if (data && !sampleData) {
+        console.log("hover render map - no data", {
+          properties: d.properties,
+          districtData,
+          subDistrictData,
+          data,
+        });
         return;
       }
 
@@ -265,11 +273,20 @@ let ACTIVE_KEY_GEOJSON = "bySubDistrict";
 
 // this will be used to store the sample data on load and make it accessible on the map
 window.GLOBAL_DATA = {};
-const getActiveData = () => ACTIVE_KEY_DATA && GLOBAL_DATA[ACTIVE_KEY_DATA];
+const getActiveData = () => {
+  console.log("get active data", ACTIVE_KEY_DATA, GLOBAL_DATA[ACTIVE_KEY_DATA]);
+  return ACTIVE_KEY_DATA && GLOBAL_DATA[ACTIVE_KEY_DATA];
+};
 
 window.GLOBAL_GEOJSON = {};
-const getActiveGeojson = () =>
-  ACTIVE_KEY_GEOJSON && GLOBAL_GEOJSON[ACTIVE_KEY_GEOJSON];
+const getActiveGeojson = () => {
+  console.log(
+    "get active geojson",
+    ACTIVE_KEY_GEOJSON,
+    GLOBAL_GEOJSON[ACTIVE_KEY_GEOJSON]
+  );
+  return ACTIVE_KEY_GEOJSON && GLOBAL_GEOJSON[ACTIVE_KEY_GEOJSON];
+};
 
 const setupView = (geojson) => {
   const svgNode = d3
@@ -300,7 +317,7 @@ const main = async () => {
   document.querySelectorAll("[geojson-key]").forEach((element) => {
     element.addEventListener("click", () => {
       ACTIVE_KEY_GEOJSON = element.getAttribute("geojson-key");
-      ACTIVE_KEY_GEOJSON = element.getAttribute("data-key");
+      ACTIVE_KEY_DATA = element.getAttribute("data-key");
       document
         .querySelectorAll(".map .button-container .button.selected")
         .forEach((selected) => {

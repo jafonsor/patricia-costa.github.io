@@ -89,6 +89,22 @@ export const matchSampleDataToGeojson = (
   return matchedData;
 };
 
+window._updatePath_ = (obj, path, updateF) => {
+  if (path.length === 0) {
+    return obj;
+  }
+
+  const key = path[0];
+  if (path.length === 1) {
+    obj[key] = updateF(obj[key]);
+    return obj;
+  }
+  const nextObj = obj[key] || {};
+  obj[key] = nextObj;
+  window._updatePath_(nextObj, path.slice(1), updateF);
+  return obj;
+};
+
 window._matchedData_ = null;
 window._loadMatchedData_ = async () => {
   const [sampleData, districtGeoJSON, subdistrictGeoJSON] = await Promise.all([
@@ -108,6 +124,9 @@ window._loadMatchedData_ = async () => {
     fetch("./geojson/gadm41_LKA_2.json").then((response) => response.json()),
   ]);
 
+  window._sampleData_ = sampleData;
+  window._districtGeoJSON_ = districtGeoJSON;
+  window._subdistrictGeoJSON_ = subdistrictGeoJSON;
   window._matchedData_ = matchSampleDataToGeojson(
     sampleData,
     "Localidade",
