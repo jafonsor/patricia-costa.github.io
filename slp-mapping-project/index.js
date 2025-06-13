@@ -1,10 +1,10 @@
 import { processSampleData } from "./scripts/utils.js";
 
-const dataStyleF = (data) => (dataStyle, noDataStyle) => (feature) =>
-  data?.[feature.properties.NAME_1] || data?.[feature.properties.NAME_2]
-    ? typeof dataStyle === "function"
-      ? dataStyle(data)
-      : dataStyle
+const dataStyle = (dataStyleF, noDataStyle) => (feature) =>
+  feature.data
+    ? typeof dataStyleF === "function"
+      ? dataStyleF(feature.data)
+      : dataStyleF
     : noDataStyle;
 
 const selectedStyleF =
@@ -64,69 +64,133 @@ const renderMap = (
     subDistrict: null,
   };
 
-  const dataStyle = dataStyleF(getData());
   const selectedStyle = selectedStyleF(selectedDistrictInfo);
 
   const geojson = getGeojson();
-  const path = svgNode.selectAll("path").data(geojson.features);
+  const data = getData();
 
-  // Add paths for each feature in the GeoJSON
-  path
+  // Attach the relevant data to each feature for easy access in event handlers
+  const featuresWithData = geojson.features.map((feature) => ({
+    ...feature,
+    data: feature.properties.NAME_2
+      ? data[feature.properties.NAME_2]
+      : data[feature.properties.NAME_1],
+  }));
+
+  // Bind the combined data to paths
+  const path = svgNode.selectAll("path").data(featuresWithData);
+
+  function mouseover(event, d) {
+    console.log("mouseover triggered", {
+      district: d.properties.NAME_1,
+      subDistrict: d.properties.NAME_2,
+      hasData: !!d.data,
+    });
+
+    const sampleData = d.data;
+    if (!sampleData) {
+      console.log("no sample data", d.properties.NAME_1, d.properties.NAME_2);
+      return;
+    }
+
+    console.log("hover render map", {
+      properties: d.properties,
+      data: d.data,
+    });
+
+    selectedDistrictInfoObj.district = d.properties.NAME_1;
+    selectedDistrictInfoObj.subDistrict = d.properties.NAME_2;
+
+    tooltip
+      .style("z-index", "1000")
+      .transition()
+      .duration(200)
+      .style("opacity", 1);
+    tooltip
+      .html(
+        renderTooltipHTML(
+          d.properties.NAME_1,
+          d.properties.NAME_2,
+          sampleData["Fluência"]
+        )
+      )
+      .style("left", event.pageX + "px")
+      .style("top", event.pageY + "px");
+
+    // Reset all paths to default style first
+    svgNode
+      .selectAll("path")
+      .attr("stroke-width", "1px")
+      .attr("stroke", "#000")
+      .on("mouseover", mouseover)
+      .on("mouseout", mouseout);
+
+    // Then set the hovered path style
+    d3.select(this)
+      .attr("stroke-width", "2px")
+      .attr("stroke", "#FFF")
+      .on("mouseover", mouseover)
+      .on("mouseout", mouseout);
+  }
+
+  function mouseout(event, d) {
+    console.log("mouseout triggered", {
+      district: d.properties.NAME_1,
+      subDistrict: d.properties.NAME_2,
+      hasData: !!d.data,
+      currentSelected: {
+        district: selectedDistrictInfoObj.district,
+        subDistrict: selectedDistrictInfoObj.subDistrict,
+      },
+    });
+
+    // Only clear the selection if we're leaving the currently selected district
+    if (
+      selectedDistrictInfoObj.district === d.properties.NAME_1 &&
+      (!selectedDistrictInfoObj.subDistrict ||
+        selectedDistrictInfoObj.subDistrict === d.properties.NAME_2)
+    ) {
+      console.log("clearing selection");
+      selectedDistrictInfoObj.district = null;
+      selectedDistrictInfoObj.subDistrict = null;
+
+      tooltip
+        .transition()
+        .duration(200)
+        .style("opacity", 0)
+        .on("end", () => {
+          console.log("animation ended, tooltip opacity 0");
+          tooltip.style("z-index", "-1");
+        });
+
+      d3.select(this)
+        .attr("stroke-width", "1px")
+        .attr("stroke", "#000")
+        .on("mouseover", mouseover)
+        .on("mouseout", mouseout);
+    }
+  }
+
+  // Enter selection: create new paths and set up event listeners and styles
+  const enterPaths = path
     .enter()
     .append("path")
     .attr("d", d3.geoPath().projection(projection))
-    .attr("stroke", selectedStyle("#FFF", "#000"))
     .attr("stroke-width", "1px")
+    .attr("stroke", "#000")
     .attr("fill", dataStyle("#F2B02A", "#ccc"))
-    // hover events
-    .on("mouseover", (event, d) => {
-      // get the sample data for the feature. looks for subdistrict name, otherwise
-      // uses district name. if no data is found for both, then it does not open the tooltip
-      const data = getData();
-      const districtData = data?.[d.properties.NAME_1];
-      const subDistrictData = data?.[d.properties.NAME_2];
+    .on("mouseover", mouseover)
+    .on("mouseout", mouseout);
 
-      const sampleData = districtData || subDistrictData;
-      if (data && !sampleData) {
-        console.log("hover render map - no data", {
-          properties: d.properties,
-          districtData,
-          subDistrictData,
-          data,
-        });
-        return;
-      }
-
-      selectedDistrictInfoObj.district = d.properties.NAME_1;
-      selectedDistrictInfoObj.subDistrict = d.properties.NAME_2;
-
-      tooltip.transition().duration(200).style("opacity", 1);
-      tooltip
-        .html(
-          data
-            ? renderTooltipHTML(
-                d.properties.NAME_1,
-                d.properties.NAME_2,
-                sampleData?.["Fluência"]
-              )
-            : renderEmptyTooltipHTML()
-        )
-        .style("left", event.pageX + "px")
-        .style("top", event.pageY + "px");
-
-      updateMap();
-      console.log("hover render map", d.properties);
-    });
-
+  // Update selection: update the path data if the geojson changes
   path
+    .merge(enterPaths)
     .transition()
     .duration(
       duration === null || duration === undefined ? defaultDuration : duration
     )
-    .attr("d", d3.geoPath().projection(projection))
-    .attr("stroke", selectedStyle("#FFF", "#000"))
-    .attr("fill", dataStyle("#F2B02A", "#ccc"))
-    .attr("stroke-width", selectedStyle("2px", "1px"));
+    .attr("d", d3.geoPath().projection(projection));
+  // No need to re-apply styles or event listeners here, unless you want to animate color changes
 
   path.exit().remove();
 };
@@ -346,22 +410,28 @@ const main = async () => {
         GLOBAL_DATA.byDistrict = byDistrict;
         GLOBAL_DATA.bySubDistrict = bySubDistrict;
         console.log({ byDistrict, bySubDistrict });
+
+        return { byDistrict, bySubDistrict };
       }),
 
     fetch("./geojson/gadm41_LKA_1.json")
       .then((response) => response.json())
       .then((districtGeoJSON) => {
         GLOBAL_GEOJSON.byDistrict = districtGeoJSON;
+        return districtGeoJSON;
       }),
 
     fetch("./geojson/gadm41_LKA_2.json")
       .then((response) => response.json())
       .then((subdistrictGeoJSON) => {
         GLOBAL_GEOJSON.bySubDistrict = subdistrictGeoJSON;
+        return subdistrictGeoJSON;
       }),
-  ]).then(() => {
-    updateMap();
-  });
+  ]).then(
+    ([{ byDistrict, bySubDistrict }, districtGeoJSON, subdistrictGeoJSON]) => {
+      updateMap();
+    }
+  );
 };
 
 document.onreadystatechange = () => {
