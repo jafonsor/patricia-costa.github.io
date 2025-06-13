@@ -64,7 +64,10 @@ const renderMap = (
     subDistrict: null,
   };
 
-  const selectedStyle = selectedStyleF(selectedDistrictInfo);
+  const regionWithDataFill = "#F2B02A";
+  const regionWithoutDataFill = "#ccc";
+  const selectedRegionBorderColor = "#000";
+  const unselectedRegionBorderColor = "#FFF";
 
   const geojson = getGeojson();
   const data = getData();
@@ -77,6 +80,12 @@ const renderMap = (
       : data[feature.properties.NAME_1],
   }));
 
+  console.log("data", data);
+  console.log(
+    "features that have data",
+    featuresWithData.filter((feature) => feature.data)
+  );
+
   // Bind the combined data to paths
   const path = svgNode.selectAll("path").data(featuresWithData);
 
@@ -86,6 +95,23 @@ const renderMap = (
       subDistrict: d.properties.NAME_2,
       hasData: !!d.data,
     });
+
+    // Reset all paths to default style first
+    svgNode
+      .selectAll("path")
+      .attr("stroke-width", "1px")
+      .attr("stroke", unselectedRegionBorderColor)
+      .on("mouseover", mouseover)
+      .on("mouseout", mouseout)
+      .lower();
+
+    // Then set the hovered path style
+    d3.select(this)
+      .attr("stroke-width", "2px")
+      .raise() // Bring this element to the front of its siblings
+      .attr("stroke", selectedRegionBorderColor)
+      .on("mouseover", mouseover)
+      .on("mouseout", mouseout);
 
     const sampleData = d.data;
     if (!sampleData) {
@@ -116,21 +142,6 @@ const renderMap = (
       )
       .style("left", event.pageX + "px")
       .style("top", event.pageY + "px");
-
-    // Reset all paths to default style first
-    svgNode
-      .selectAll("path")
-      .attr("stroke-width", "1px")
-      .attr("stroke", "#000")
-      .on("mouseover", mouseover)
-      .on("mouseout", mouseout);
-
-    // Then set the hovered path style
-    d3.select(this)
-      .attr("stroke-width", "2px")
-      .attr("stroke", "#FFF")
-      .on("mouseover", mouseover)
-      .on("mouseout", mouseout);
   }
 
   function mouseout(event, d) {
@@ -165,7 +176,7 @@ const renderMap = (
 
       d3.select(this)
         .attr("stroke-width", "1px")
-        .attr("stroke", "#000")
+        .attr("stroke", unselectedRegionBorderColor)
         .on("mouseover", mouseover)
         .on("mouseout", mouseout);
     }
@@ -177,8 +188,8 @@ const renderMap = (
     .append("path")
     .attr("d", d3.geoPath().projection(projection))
     .attr("stroke-width", "1px")
-    .attr("stroke", "#000")
-    .attr("fill", dataStyle("#F2B02A", "#ccc"))
+    .attr("stroke", unselectedRegionBorderColor)
+    .attr("fill", dataStyle(regionWithDataFill, regionWithoutDataFill))
     .on("mouseover", mouseover)
     .on("mouseout", mouseout);
 
@@ -189,7 +200,8 @@ const renderMap = (
     .duration(
       duration === null || duration === undefined ? defaultDuration : duration
     )
-    .attr("d", d3.geoPath().projection(projection));
+    .attr("d", d3.geoPath().projection(projection))
+    .attr("fill", dataStyle(regionWithDataFill, regionWithoutDataFill));
   // No need to re-apply styles or event listeners here, unless you want to animate color changes
 
   path.exit().remove();
@@ -403,6 +415,7 @@ const main = async () => {
         const parsedData = XLSX.utils.sheet_to_json(sheet, {
           raw: true,
         });
+
         const byDistrict = processSampleData(parsedData, "Localidade", [
           "Fluência",
         ]);
@@ -411,7 +424,12 @@ const main = async () => {
         GLOBAL_DATA.bySubDistrict = bySubDistrict;
         console.log({ byDistrict, bySubDistrict });
 
-        return { byDistrict, bySubDistrict };
+        return {
+          byDistrict,
+          bySubDistrict,
+          sampleCount: parsedData.length,
+          sampleColumns: ["Fluência"],
+        };
       }),
 
     fetch("./geojson/gadm41_LKA_1.json")
@@ -428,8 +446,20 @@ const main = async () => {
         return subdistrictGeoJSON;
       }),
   ]).then(
-    ([{ byDistrict, bySubDistrict }, districtGeoJSON, subdistrictGeoJSON]) => {
+    ([
+      { byDistrict, bySubDistrict, sampleCount, sampleColumns },
+      districtGeoJSON,
+      subdistrictGeoJSON,
+    ]) => {
       updateMap();
+
+      verifyData({
+        data: { byDistrict, bySubDistrict, sampleCount, sampleColumns },
+        geojson: {
+          byDistrict: districtGeoJSON,
+          bySubDistrict: subdistrictGeoJSON,
+        },
+      });
     }
   );
 };
@@ -443,3 +473,129 @@ document.onreadystatechange = () => {
 document.onload = () => {
   main();
 };
+
+function assert(condition, message) {
+  if (!condition) {
+    console.error(message || "Assertion failed");
+    // throw new Error(message || "Assertion failed");
+  }
+}
+
+function verifyDistrictDataCountMatchesSubDistrictTotals(data, geojson) {
+  const totalByDistrict = {};
+  for (const subdistrictFeature of geojson.bySubDistrict.features) {
+    const subdistrictData =
+      data.bySubDistrict[subdistrictFeature.properties.NAME_2];
+    if (!subdistrictData) {
+      continue;
+    }
+
+    if (!totalByDistrict[subdistrictFeature.properties.NAME_1]) {
+      totalByDistrict[subdistrictFeature.properties.NAME_1] = {};
+    }
+
+    const currentDistrictTotals =
+      totalByDistrict[subdistrictFeature.properties.NAME_1];
+
+    for (const sampleColumn of data.sampleColumns) {
+      if (!currentDistrictTotals[sampleColumn]) {
+        currentDistrictTotals[sampleColumn] = {};
+      }
+
+      for (const [key, value] of Object.entries(
+        subdistrictData[sampleColumn] || {}
+      )) {
+        if (!currentDistrictTotals[sampleColumn][key]) {
+          currentDistrictTotals[sampleColumn][key] = 0;
+        }
+        currentDistrictTotals[sampleColumn][key] += value;
+      }
+    }
+  }
+
+  for (const [districtKey, districtData] of Object.entries(data.byDistrict)) {
+    for (const sampleColumn of data.sampleColumns) {
+      for (const [key, value] of Object.entries(
+        districtData[sampleColumn] || {}
+      )) {
+        assert(
+          totalByDistrict[districtKey][sampleColumn][key] === value,
+          `District ${districtKey}.${sampleColumn}.${key} has ${value} samples, but subdistrict total is ${
+            totalByDistrict[districtKey][sampleColumn][key]
+          }. Individual subdistrict values:\n${geojson.bySubDistrict.features
+            .filter((feature) => feature.properties.NAME_1 === districtKey)
+            .filter(
+              (feature) =>
+                data.bySubDistrict[feature.properties.NAME_2]?.[sampleColumn]?.[
+                  key
+                ]
+            )
+            .map(
+              (feature) =>
+                `  ${feature.properties.NAME_2}: ${
+                  data.bySubDistrict[feature.properties.NAME_2][sampleColumn][
+                    key
+                  ]
+                }`
+            )
+            .join("\n")}`
+        );
+      }
+    }
+  }
+}
+
+function verifyTotalSampleCountMatchesNumberOfSamples(data, geojson) {
+  const totalSamplesByDistrict = Object.values(data.byDistrict).reduce(
+    (districtAcc, districtData) =>
+      districtAcc +
+      data.sampleColumns.reduce(
+        (columnAcc, sampleColumn) =>
+          columnAcc +
+          Object.values(districtData[sampleColumn] || {}).reduce(
+            (valueAcc, value) => valueAcc + value,
+            0
+          ),
+        0
+      ),
+    0
+  );
+
+  const totalSamplesBySubDistrict = Object.values(data.bySubDistrict).reduce(
+    (districtAcc, districtData) =>
+      districtAcc +
+      data.sampleColumns.reduce(
+        (columnAcc, sampleColumn) =>
+          columnAcc +
+          Object.values(districtData[sampleColumn] || {}).reduce(
+            (valueAcc, value) => valueAcc + value,
+            0
+          ),
+        0
+      ),
+    0
+  );
+
+  assert(
+    totalSamplesByDistrict === data.sampleCount &&
+      totalSamplesBySubDistrict === data.sampleCount,
+    `Total samples by district (${totalSamplesByDistrict}) or total samples by subisctrict (${totalSamplesBySubDistrict}) does not match number of samples (${data.sampleCount})`
+  );
+}
+
+function verifyAllSubDistrictsHaveDifferentNames(data, geojson) {
+  const subDistrictNames = new Set();
+  for (const subdistrictFeature of geojson.bySubDistrict.features) {
+    subDistrictNames.add(subdistrictFeature.properties.NAME_2);
+  }
+  assert(
+    subDistrictNames.size === geojson.bySubDistrict.features.length,
+    `Subdistrict names are not unique. There are ${geojson.bySubDistrict.features.length} subdistricts, but ${subDistrictNames.size} unique names.`
+  );
+}
+
+function verifyData({ data, geojson }) {
+  verifyDistrictDataCountMatchesSubDistrictTotals(data, geojson);
+  verifyTotalSampleCountMatchesNumberOfSamples(data, geojson);
+  verifyAllSubDistrictsHaveDifferentNames(data, geojson);
+}
