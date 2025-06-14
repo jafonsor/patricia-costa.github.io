@@ -425,6 +425,7 @@ const main = async () => {
         console.log({ byDistrict, bySubDistrict });
 
         return {
+          parsedData,
           byDistrict,
           bySubDistrict,
           sampleCount: parsedData.length,
@@ -447,14 +448,20 @@ const main = async () => {
       }),
   ]).then(
     ([
-      { byDistrict, bySubDistrict, sampleCount, sampleColumns },
+      { parsedData, byDistrict, bySubDistrict, sampleCount, sampleColumns },
       districtGeoJSON,
       subdistrictGeoJSON,
     ]) => {
       updateMap();
 
       verifyData({
-        data: { byDistrict, bySubDistrict, sampleCount, sampleColumns },
+        data: {
+          parsedData,
+          byDistrict,
+          bySubDistrict,
+          sampleCount,
+          sampleColumns,
+        },
         geojson: {
           byDistrict: districtGeoJSON,
           bySubDistrict: subdistrictGeoJSON,
@@ -538,6 +545,18 @@ function verifyDistrictDataCountMatchesSubDistrictTotals(data, geojson) {
                   ]
                 }`
             )
+            .join("\n")}\nRaw data from parsedData:\n${data.parsedData
+            .filter((item) => item.Localidade === districtKey)
+            .map((item) => {
+              return JSON.stringify({
+                Localidade: item.Localidade,
+                DS: item.DS,
+                ...data.sampleColumns.reduce((acc, column) => {
+                  acc[column] = item[column];
+                  return acc;
+                }, {}),
+              });
+            })
             .join("\n")}`
         );
       }
